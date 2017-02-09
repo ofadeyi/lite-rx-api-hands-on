@@ -88,7 +88,13 @@ public class Part07Errors {
 	// TODO Implement a method that capitalize each user of the incoming flux using the capitalizeUser() method and
     // emit an error containing a GetOutOfHereException exception
 	Flux<User> capitalizeMany(Flux<User> flux) {
-		return flux.map(this::capitalizeUser);
+		return flux.map(user -> {
+            try {
+                return capitalizeUser(user);
+            } catch (GetOutOfHereException e) {
+                e.printStackTrace();
+            }
+        });
 	}
 
 	User capitalizeUser(User user) throws GetOutOfHereException {
